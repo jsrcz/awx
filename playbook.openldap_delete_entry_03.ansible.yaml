@@ -8,7 +8,7 @@
       file: "vars.yaml"
   - name: Delete JeanDupond from LDAP
     ansible.builtin.shell: |
-      ldapdelete -H ldap://192.168.10.37:30389 -D "cn=admin,dc=example,dc=org" -w Not@SecurePassw0rd "cn=Jean Dupond,ou=users,dc=example,dc=org"
+      ldapdelete -H ldap://192.168.10.37:30389 -D "cn=admin,dc=example,dc=org" -w Not@SecurePassw0rd "cn={{ user_givenname }} {{ user_sn }},ou=users,dc=example,dc=org"
     register: stdout_lines
   - name: Print JeanDupond delete LDAP output
     ansible.builtin.debug:

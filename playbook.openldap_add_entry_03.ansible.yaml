@@ -4,15 +4,12 @@
   connection: local
   gather_facts: false
   tasks:
-  - name: Pause for 1 minutes
-    ansible.builtin.pause:
-      minutes: 1
   - include_vars:
       file: "vars.yaml"  
   - name: Prepare JeanDupond.ldif file
     ansible.builtin.template:
       src: JeanDupond.ldif.j2
-      dest: /tmp/JeanDupond.ldif
+      dest: /tmp/JeanDupond.ldif   
   - name: Add JeanDupond from LDAP
     ansible.builtin.shell: |
       ldapadd -H ldap://192.168.10.37:30389 -D "cn=admin,dc=example,dc=org" -w Not@SecurePassw0rd -f /tmp/JeanDupond.ldif
@@ -20,7 +17,7 @@
     
   - name: Get JeanDupond from LDAP
     ansible.builtin.shell: |
-      ldapsearch -x -H ldap://192.168.10.37:30389 -b "cn=Jean Dupond,ou=users,dc=example,dc=org" -D "cn=admin,dc=example,dc=org" -w Not@SecurePassw0rd 
+      # ldapsearch -x -H ldap://192.168.10.37:30389 -b "cn={{ user_givenname }} {{ user_sn }},ou=users,dc=example,dc=org" -D "cn=admin,dc=example,dc=org" -w Not@SecurePassw0rd 
     register: stdout_lines
 
   - name: Print JeanDupond get LDAP output
