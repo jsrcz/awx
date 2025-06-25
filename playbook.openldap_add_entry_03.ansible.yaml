@@ -4,6 +4,9 @@
   connection: local
   gather_facts: false
   tasks:
+  - name: Pause for 5 minutes to build app cache
+    ansible.builtin.pause:
+      minutes: 1
   - include_vars:
       file: "vars.yaml"  
   - name: Prepare JeanDupond.ldif file
