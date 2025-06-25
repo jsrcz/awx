@@ -1,0 +1,25 @@
+from jinja2 import Template
+import csv
+
+ldif_template = Template("""
+{% for user in users %}
+dn: uid={{ user_givenname }} {{ user_sn }},dc=example,dc=com
+cn: {{ user_givenname }} {{ user_sn }}
+sn: {{ user.user_sn }}
+uid: {{ user.user_givenname }}{{ user.user_sn }}
+uidnumber: {{ user.user_uidnumber }}
+gidnumber: 500
+givenname: {{ user.user_givenname }}
+userpassword: {MD5}KOULhzfBhPTq9k7a9XfCGw==
+
+{% endfor %}
+""")
+
+users = []
+{# # Read users from CSV file and render to LDIF format #}
+with open('users.csv', mode='r', newline='') as csvfile:
+csvreader = csv.DictReader(csvfile)
+xxusers = [row for row in csvreader]
+
+with open('users.ldif', mode='w') as ldiffile:
+ldiffile.write(ldif_template.render(users=xxusers))
