@@ -15,3 +15,7 @@
   - name: Print HTTP response
     ansible.builtin.debug:
       var: result      
+  - name: Print Message variable
+    ansible.builtin.debug:
+      var: Message
+    when: Message is defined and Message is not none      
