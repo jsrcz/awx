@@ -1,12 +1,12 @@
-dn: cn=Jean Dupond,ou=users,dc=example,dc=org
-cn: Jean Dupond
+dn: cn={{ user_givenname }} {{ user_sn }},ou=users,dc=example,dc=org
+cn: {{ user_givenname }} {{ user_sn }}
 gidnumber: 500
-givenname: Jean
-homedirectory: /home/users/jdupond
+givenname: {{ user_givenname }}
+homedirectory: /home/users/{{ user_givenname }}{{ user_sn }}
 objectclass: inetOrgPerson
 objectclass: posixAccount
 objectclass: top
-sn: Dupond
-uid: jdupond
-uidnumber: 1005
+sn: {{ user_sn }}
+uid: {{ user_givenname }}{{ user_sn }}
+uidnumber: {{ user_uidnumber }}
 userpassword: {MD5}KOULhzfBhPTq9k7a9XfCGw==

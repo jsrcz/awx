@@ -1,0 +1,18 @@
+- name: Add an LDAP entry using Ansible
+  # hosts: openldap_server
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+  - name: Prepare ldif file
+    ansible.builtin.template:
+      src: JeanDupond.ldif.j2
+      dest: /tmp/JeanDupond.ldif
+    vars:
+      user_sn: "Dupond"
+      user_givenname: "Jean"
+      user_uidnumber: 10005
+  # - name: Prepare user.ldif file
+  #   ansible.builtin.template:
+  #     src: csv2ldif.j2
+  #     dest: /tmp/userssss.ldif
